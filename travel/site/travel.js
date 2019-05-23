@@ -21,10 +21,12 @@ app.use(function(req, res, next) {
   next();
 });
 
+//home route
 app.get("/", (req, res) => {
   res.render("home");
 });
 
+//about route with testing
 app.get("/about", (req, res) => {
   res.render("about", {
     fortunes: fortune.getfortune(),
