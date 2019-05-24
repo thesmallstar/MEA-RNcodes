@@ -1,1 +1,14 @@
-hiii
+{{#each tours}}
+
+<br>
+{{name}} -- {{price}}
+{{#if ../currencies}}
+({{../../currency.abbrev}})
+{{/if}}
+
+
+
+{{/each}}
+{{#unless currencies}}
+<p>All prices in {{currency.name}}.</p>
+{{/unless}}

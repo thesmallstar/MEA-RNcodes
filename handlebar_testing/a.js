@@ -18,7 +18,19 @@ app.use(express.static(__dirname + "/public"));
 
 app.get("", (req, res) => {
   console.log("here");
-  res.render("a", { layout: "new" });
+  res.render("a", {
+    layout: "new",
+    currency: {
+      name: "United States dollars",
+      abbrev: "USD"
+    },
+    tours: [
+      { name: "Hood River", price: "$99.95" },
+      { name: "Oregon Coast", price: "$159.95" }
+    ],
+    specialsUrl: "/january-specials",
+    currencies: ["USD", "GBP", "BTC"]
+  });
 });
 
 //404 page
