@@ -16,8 +16,9 @@ app.use(express.static(__dirname + "/public"));
 
 //MAIN code goes here
 
-app.get("/", (req, res) => {
-  res.render("home");
+app.get("", (req, res) => {
+  console.log("here");
+  res.render("a", { layout: "new" });
 });
 
 //404 page
