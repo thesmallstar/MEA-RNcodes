@@ -1,5 +1,6 @@
 var http = require("http");
 
+//working in multiple routes in node without express
 http
   .createServer(function(req, res) {
     var path = req.url.replace(/\/?(?:\?.*)?$/, "").toLowerCase();
