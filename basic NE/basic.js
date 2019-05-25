@@ -9,7 +9,7 @@ var handlebars = require("express3-handlebars").create({
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 
-//add port to listen
+//add port to listen-default 3000
 app.set("port", process.env.PORT || 3000);
 
 // add public direct
@@ -31,6 +31,7 @@ app.use(function(err, req, res, next) {
   res.render("500");
 });
 
+//Listen port
 app.listen(app.get("port"), function() {
   console.log("express started " + app.get("port"));
 });
