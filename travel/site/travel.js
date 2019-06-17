@@ -1,7 +1,7 @@
 var express = require("express");
 var app = express();
 var fortune = require("./lib/fortune.js");
-
+var formidable = require("formidable");
 //handle bars
 var handlebars = require("express3-handlebars").create({
   defaultLayout: "main",
@@ -44,6 +44,28 @@ app.get("/about", (req, res) => {
   });
 });
 
+//file upload
+
+app.get("/contest/vacation-photo", function(req, res) {
+  var now = new Date();
+  res.render("vacation-photo", {
+    year: now.getFullYear(),
+    month: now.getMonth()
+  });
+});
+app.post("/contest/vacation-photo/:year/:month", function(req, res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function(err, fields, files) {
+    if (err) return res.redirect(303, "/error");
+    console.log("received fields:");
+    console.log(fields);
+    console.log("received files:");
+    console.log(files);
+    res.redirect(303, "/thank-you");
+  });
+});
+
+//newsletter
 app.get("/newsletter", function(req, res) {
   res.render("newsletter", { csrf: "CSRF token goes here" });
 });
