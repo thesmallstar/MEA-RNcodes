@@ -4,7 +4,14 @@ var fortune = require("./lib/fortune.js");
 
 //handle bars
 var handlebars = require("express3-handlebars").create({
-  defaultLayout: "main"
+  defaultLayout: "main",
+  helpers: {
+    section: function(name, options) {
+      if (!this._sections) this._sections = {};
+      this._sections[name] = options.fn(this);
+      return null;
+    }
+  }
 });
 app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
@@ -42,11 +49,16 @@ app.get("/newsletter", function(req, res) {
 });
 
 app.post("/process", function(req, res) {
-  console.log("Form (from querystring): " + req.query.form);
-  console.log("CSRF token (from hidden form field): " + req.body._csrf);
-  console.log("Name (from visible form field): " + req.body.name);
-  console.log("Email (from visible form field): " + req.body.email);
-  res.redirect(303, "/thank-you");
+  if (req.xhr) {
+    console.log(req.query);
+
+    // if there were an error, we would send { error: 'error description' }
+    res.send({ success: true });
+  } else {
+    console.log("h1");
+    // if there were an error, we would redirect to an error page
+    res.redirect(303, "/thank-you");
+  }
 });
 
 app.get("/tours/hood-river", function(req, res) {
